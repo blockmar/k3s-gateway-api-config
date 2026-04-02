@@ -1,5 +1,9 @@
 # Gateway API Support in K3S / Traefik
 
+This repo documents how to enable [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/) support in [K3S](https://k3s.io/), which uses [Traefik](https://traefik.io/) as its default ingress controller.
+
+The Gateway API is the modern successor to the `Ingress` resource, offering more expressive routing, better multi-tenant support, and a richer set of features. Enabling it in K3S requires a small configuration override — it does not replace or break existing `Ingress` resources.
+
 K3S's official documentation returns [no results](https://docs.k3s.io/search/?q=gateway+api) when searching for "Gateway API" (as of April 2026). The solution turns out to be simple — hopefully this saves you the time it took to find it.
 
 ---
@@ -16,7 +20,7 @@ K3S deploys Traefik automatically and manages it via a Helm chart. From the [K3S
 
 Create a `HelmChartConfig` that enables the Traefik Gateway API provider. This extends the default config without replacing it, so standard `Ingress` resources continue to work.
 
-**Create `/var/lib/rancher/k3s/server/manifests/traefik-gateway-api.yaml`:**
+Create a new file `/var/lib/rancher/k3s/server/manifests/traefik-gateway-api.yaml`
 
 ```yaml
 apiVersion: helm.cattle.io/v1
