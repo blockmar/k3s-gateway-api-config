@@ -104,28 +104,25 @@ Spec:
 
 ---
 
-## Example HTTPRoute
+## Demo
 
-Once the gateway is running, create `HTTPRoute` resources that reference it via `parentRefs`.
+The file [`nginx-demo.yaml`](./nginx-demo.yaml) contains a  working example to verify that Gateway API routing is working. It deploys:
 
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: my-app
-  namespace: my-namespace
-spec:
-  parentRefs:
-    - name: traefik-gateway
-      namespace: kube-system
-  hostnames:
-    - "my-app.example.com"
-  rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
-        - name: my-app-service
-          port: 80
+- A `demo` namespace
+- An nginx pod serving a simple HTML page at `/demo`
+- A `Service` exposing the pod on port 8080
+- An `HTTPRoute` attached to the `traefik-gateway`, routing `/demo` to the nginx service
+
+Apply it with:
+
+```bash
+kubectl apply -f nginx-demo.yaml
 ```
+
+Then test it (replace `<node-ip>` with your K3S node's IP):
+
+```bash
+curl http://<node-ip>/demo
+```
+
+You should get back a simple HTML page with `Hello world 1!!`.
