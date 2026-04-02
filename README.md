@@ -106,7 +106,7 @@ Spec:
 
 ## Demo
 
-The file [`nginx-demo.yaml`](./nginx-demo.yaml) contains a  working example to verify that Gateway API routing is working. It deploys:
+The file [`nginx-demo.yaml`](./nginx-demo.yaml) contains a  deplyment example to verify that the Gateway API routing is working. It deploys:
 
 - A `demo` namespace
 - An nginx pod serving a simple HTML page at `/demo`
@@ -125,4 +125,4 @@ Then test it (replace `<node-ip>` with your K3S node's IP):
 curl http://<node-ip>/demo
 ```
 
-You should get back a simple HTML page with `Hello world 1!!`.
+You should get back a simple `Hello World` HTML page. While the server root should still display a `404 Not found` HTTP error.
