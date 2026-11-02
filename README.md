@@ -102,6 +102,19 @@ Spec:
     Protocol:  HTTP
 ```
 
+## HTTPS / TLS
+
+To enable https / tls the Gateway API has to be configured for the secure listener as well.
+
+See additional configuration in: [`traefik-gateway-api-with-tls.yaml`](./traefik-gateway-api-with-tls.yaml)
+
+This setup required the TLS certificate to be added to a Kubernetes secret (either manually or using eg. [cert-manager](https://cert-manager.io/docs/usage/certificate/))
+
+```
+kubectl -n kube-system create secret tls site-tls-cert \
+  --cert=site.pem --key=site-key.pem
+```
+
 ---
 
 ## Demo
